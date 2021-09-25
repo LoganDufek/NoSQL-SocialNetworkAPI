@@ -24,7 +24,12 @@ const UserSchema = new Schema({
       match: [/.+\@.+\..+/, 'invalid email'] 
     },
     thoughts: [thoughtSchema],
-    friends: [UserSchema]
+    friends: [
+        {
+        _id,
+        ref: 'User'
+        }
+    ]
 
 
 });
