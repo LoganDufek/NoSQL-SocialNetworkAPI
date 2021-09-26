@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const thoughtSchema = require('./Thought')
+
 
 const UserSchema = new Schema({
 
@@ -23,16 +23,29 @@ const UserSchema = new Schema({
       //OR
       match: [/.+\@.+\..+/, 'invalid email'] 
     },
-    thoughts: [thoughtSchema],
+    thoughts: [
+        {
+        type: String,
+        ref: 'Thought'
+        }
+    ],
     friends: [
         {
-        _id,
+        type: String,
         ref: 'User'
         }
     ]
 
 
-});
+},
+ {
+    toJSON: {
+      virtuals: true
+    },
+    id: false,
+  });
+
+
 
 const User = model('User', UserSchema);
 
