@@ -4,7 +4,7 @@
 
 In a previous challenge, we set up the back end for a site using a SQL database. For this challenge, we were tasked with doing something simmilar but using a NoSQL database approach using MongoDB and Mongoose. This allowed for a more fluid setup when it came to the Models, which was something I enjoyed. One thing I struggled more with during the SQL database challenge was making sure all of the parent/child and foreign key relationships were in order. This NoSQL method came easier to me. 
 
-Likewise adjusting to Mongoose syntax was a fairly easy process and it helped to be able to logically think through how each method was working.
+Likewise adjusting to Mongoose syntax was a fairly easy process and it helped to be able to logically think through how each method was working. This was aided by using subdocuments which are a really nice addition that I enjoyed configuring and using within this challenge. It also continued to help solidify the concept of modularizing my code. 
 
 ### Screenshots
 
