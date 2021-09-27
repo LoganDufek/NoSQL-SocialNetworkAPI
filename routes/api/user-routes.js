@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+//import all of the methods from user-controller path
 const {
   getAllUsers,
   getUserById,
@@ -11,6 +12,7 @@ const {
 
 } = require('../../controllers/user-controller');
 
+//set up each of these methods with the appropriate routes
 router
   .route('/')
   .get(getAllUsers)
@@ -22,6 +24,7 @@ router
   .put(updateUser)
   .delete(deleteUser);
 
+//set up specific route for adding and removing friends
 router.route('/:userId/friends/:friendId')
 .post(addFriend)
 .delete(unFriend);

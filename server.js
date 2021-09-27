@@ -1,5 +1,9 @@
+//require both express and mongoose
+
 const express = require('express');
 const mongoose = require('mongoose');
+
+//assign express and localhost port which will be used
 
 const app = express();
 const PORT = process.env.PORT || 3001;

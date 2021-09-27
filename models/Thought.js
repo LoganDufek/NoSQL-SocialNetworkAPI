@@ -1,5 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
+//Reaction schema setup with relevant fields
 let ReactionSchema = new Schema({
   reactionId: {
         type: Schema.Types.ObjectId,
@@ -16,12 +18,21 @@ let ReactionSchema = new Schema({
     },
      createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
+     get: (createdAtVal) => dateFormat(createdAtVal)
     }
 
-});
+},
+//Set up vitrtuals and getters to be used
+{
+    toJSON: {
+      virtuals: true,
+      getters: true
+    },
+    
+  });
 
-
+//Thought schema setup with relevant fields
 const ThoughtSchema = new Schema ({
 
     thoughtText: {
@@ -32,7 +43,8 @@ const ThoughtSchema = new Schema ({
     },
     createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
+    get: (createdAtVal) => dateFormat(createdAtVal)
     },
     username: {
        type: String,
@@ -40,11 +52,25 @@ const ThoughtSchema = new Schema ({
        ref: 'User'
     },
     reactions: [ReactionSchema]
+},
+//Set up vitrtuals and getters to be used
+{
+    toJSON: {
+      virtuals: true,
+      getters: true
+    },
+    id: false
+  });
+
+//ThoughtSchema Virtual to get the length of the reactions array and display it
+  ThoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
 });
 
-
+//Name the model and identify its source variable
 const Thought = model('Thought', ThoughtSchema);
 
+//export the model
 module.exports = Thought;
 
 

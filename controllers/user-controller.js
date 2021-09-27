@@ -1,10 +1,14 @@
+//require the user Model
 const { User } = require('../models');
 
+
+//Sets up userController methods
 const userController = {
 
+    //method to get all users
     getAllUsers(req, res) {
         User.find({})
-        .populate('friends', 'username')
+        .populate('friends')
         .sort({ _id: -1 })
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
@@ -12,23 +16,24 @@ const userController = {
         res.status(400).json(err);
       });
     },
-
+  // method to get specific user by their generated ID
     getUserById({ params }, res,) {
         User.findOne({_id: params.id})
-         .populate('friends', 'username')
+         .populate("friends")
          .then(dbUserData => res.json(dbUserData))
         .catch(err => {
         console.log(err);
         res.status(400).json(err);
       });
     },
-
+  //method to create user with body content
     createUser({body}, res) {
         User.create(body)
         .then(dbUserData => res.json(dbUserData))
         .catch(err => res.status(400).json(err));
     },
 
+  // method to update a specific user by their generated ID
     updateUser({ params, body}, res) {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
         .then(dbUserData => {
@@ -42,7 +47,7 @@ const userController = {
 
     },
 
-
+  // method to delete a specific user by their generated ID
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
     .then(dbUserData => {
@@ -55,6 +60,7 @@ const userController = {
     .catch(err => res.status(400).json(err));
     },
 
+    // method to add a friend to a user's friend array by ID
     addFriend({params}, res) {
       User.findOneAndUpdate(
         { _id: params.userId },
@@ -71,6 +77,7 @@ const userController = {
       .catch(err => res.json(err));
   },
 
+  // method to pull a friend from a user's friend array by ID
   unFriend({ params }, res) {
      User.findOneAndUpdate(
         { _id: params.userId },
@@ -88,7 +95,6 @@ const userController = {
 
   }
 
-
 }
-
+//exports module for later use
 module.exports = userController;

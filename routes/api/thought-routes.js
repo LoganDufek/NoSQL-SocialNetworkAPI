@@ -1,8 +1,10 @@
 const router = require('express').Router();
 
+//import all of the methods from thought-controller path
 const { getAllThoughts, getThoughtById, addNewThought,
-  updateThought, deleteThought } = require('../../controllers/thought-controller');
+  updateThought, deleteThought,addReaction, removeReaction  } = require('../../controllers/thought-controller');
 
+  //set up each of these methods with the appropriate routes
   router
   .route('/')
   .get(getAllThoughts)
@@ -14,5 +16,11 @@ const { getAllThoughts, getThoughtById, addNewThought,
   .put(updateThought)
   .delete(deleteThought);
 
+  //set up specific routes for adding and removing reactions
+  router
+  .route('/:thoughtId/reactions')
+  .post(addReaction)
+  
+  router.route('/:thoughtId/:reactionId').delete(removeReaction);
 
 module.exports = router;
